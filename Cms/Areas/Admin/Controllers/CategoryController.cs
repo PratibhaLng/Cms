@@ -18,6 +18,12 @@ namespace Cms.Areas.Admin.Controllers
             IEnumerable<Category> objCategoryList = _unitOfWork.Category.GetAll();
             return View(objCategoryList);
         }
+
+        //Get
+        public IActionResult Create()
+        {
+            return View();
+        }
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]

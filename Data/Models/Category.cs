@@ -15,7 +15,7 @@ namespace Data.Models
         [Required]
         public string Name { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public string? CreatedBy { get; set; }
 
