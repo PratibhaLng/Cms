@@ -5,10 +5,11 @@
 }*@
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
-    <input asp-for="Id" hidden />
+    <input asp-for="Id" type="hidden" />
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2 class="text-primary">@(Model.Id != 0 ? "Update" : "Create")</h2>
+
+            <h2 class="text-primary">@(Model.Id != 0 ? "Update" : "Create")Product</h2>
             <hr />
         </div>
         <div asp-validation-summary="All"></div>
@@ -19,7 +20,7 @@
         </div>
         <div class="mb-3">
             <label asp-for="Description"></label>
-            <input asp-for="Description" class="form-control" />
+            <textarea asp-for="Description" rows="3" class="form-control"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <div class="mb-3">
@@ -27,23 +28,35 @@
             <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="CreatedDate"></label>
-            <input asp-for="CreatedDate" class="form-control" />
-            <span asp-validation-for="CreatedDate" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="UpdatedDate"></label>
-            <input asp-for="UpdatedDate" class="form-control" />
-            <span asp-validation-for="UpdatedDate" class="text-danger"></span>
-        </div>
+
+       
+
+@*
         <div class="mb-3">
             <label asp-for="SubCategoryId"></label>
             <select asp-for="SubCategoryId" asp-items="ViewBag.CategoryList" class="form-select" />
             <option disabled selected>--Select Category--</option>
-            <span asp-validation-for="SubCategoryId" class="text-danger"></span>
+            <span asp-validation-for="CategoryId " class="text-danger"></span>
+        </div>*@
+        
+        <<div class="col-lg-4">
+            <select class="form-control" required id="SubCategoryList" asp-for="@Model.SubCategoryId" asp-items="ViewBag.SubCategoryList">
+                <option value="">--Select Category--</option>
+            </select>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-        <a asp-controller="SubCategory" asp-action="Index" class="btn btn-secondary">Back to Homepage</a>
+        </br>
+        </br>
+        <div class="col-12">
+            @if (Model.Id != 0)
+            {
+                <button type="submit" class="btn btn-primary">Update</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary style="width:150px">Create</button>
+
+            }
+        
+        <a asp-action="Index" class="btn btn-secondary">Back to Homepage</a>
     </div>
 </form>

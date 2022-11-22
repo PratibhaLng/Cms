@@ -23,6 +23,8 @@ namespace Data.Models
         public DateTime? UpdatedDate { get; set; }
 
         public string? UpdatedBy { get; set; }
+
+        
         [ValidateNever]
         //navigation properties
         public List<SubCategory> subCategories { get; set; }

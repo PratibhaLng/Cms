@@ -6,9 +6,10 @@
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
+
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2 class="text-primary">@(Model.Id!=0?"Update":"Create")</h2>
+            <h2 class="text-primary">@(Model.Id != 0 ? "Update" : "Create") SubCategory</h2>
             <hr />
         </div>
         <div asp-validation-summary="All"></div>
@@ -17,24 +18,44 @@
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
-            <label asp-for="CreatedDate"></label>
-            <input asp-for="CreatedDate" class="form-control" />
-            <span asp-validation-for="CreatedDate" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="UpdatedDate"></label>
-            <input asp-for="UpdatedDate" class="form-control" />
-            <span asp-validation-for="UpdatedDate" class="text-danger"></span>
-        </div>
-         <div class="mb-3">
             <label asp-for="CategoryId"></label>
             <select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select" />
             <option disabled selected>--Select Category--</option>
             <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+
+
+        @* <div class="mb-3">
+        @if(Model.Id!=0){
+        <label asp-for="UpdatedDate"></label>
+        <input asp-for="UpdatedDate" class="form-control" />
+        <span asp-validation-for="UpdatedDate" class="text-danger"></span>
+
+        }
+        else
+        {
+        <label asp-for="CreatedDate"></label>
+        <input asp-for="CreatedDate" class="form-control" />
+        <span asp-validation-for="CreatedDate" class="text-danger"></span>
+        }*@
+    @*</div>*@
+
+
+    <div class="col-12">
+        @if (Model.Id != 0)
+        {
+            <button type="submit" class="btn btn-primary">Update</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary" style="width:150px" > Create </button>
+
+        }
         <a asp-controller="SubCategory" asp-action="Index" class="btn btn-secondary">Back to Homepage</a>
+    </div>
+
     </div>
 </form>
 

@@ -55,16 +55,21 @@ namespace Cms.Areas.Admin.Controllers
                     Value = u.Id.ToString(),
                 }
             );
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
-                u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString(),
-                }
-            );
+            //IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
+            //    u => new SelectListItem
+            //    {
+            //        Text = u.Name,
+            //        Value = u.Id.ToString(),
+            //    }
+            //);
             if (id == null || id == 0)
             {
-                ViewBag.SubCategoryList = SubCategoryList;
+                List<SelectListItem> selectListItem = new List<SelectListItem>();
+                foreach (var subCategory in SubCategoryList)
+                {
+                    selectListItem.Add(subCategory);
+                }
+                ViewBag.SubCategoryList = selectListItem;
                 return View(product);
             }
             //update

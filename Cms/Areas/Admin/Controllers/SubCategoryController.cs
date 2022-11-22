@@ -2,6 +2,7 @@
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cms.Areas.Admin.Controllers
 {
@@ -40,6 +41,10 @@ namespace Cms.Areas.Admin.Controllers
         //    }
         //    return View(obj);
         //}
+
+        
+       
+
         public IActionResult Upsert(int? id)
         {
             SubCategory subCategory = new();
@@ -50,19 +55,22 @@ namespace Cms.Areas.Admin.Controllers
                     Value = u.Id.ToString(),
                 }
             );
-            if (id == null|| id==0)
+            if (id == null || id == 0)
             {
                 ViewBag.CategoryList = CategoryList;
                 return View(subCategory);
             }
             else
-            //var subcategoryfromDbFirst = _unitOfWork.SubCategory.GetFirstOrDefault(x => x.Id == id);
-            //if (subcategoryfromDbFirst == null)
-            //{
-            //    return NotFound();
-            //}
-            return View(subCategory);
+            {  //var subcategoryfromDbFirst = _unitOfWork.SubCategory.GetFirstOrDefault(x => x.Id == id);
+                //if (subcategoryfromDbFirst == null)
+                //{
+                //    return NotFound();
+                //}
+                subCategory = _unitOfWork.SubCategory.GetFirstOrDefault(x => x.Id == id);
 
+                return View(subCategory);
+            }
+            return View(subCategory);
         }
         //POST
         [HttpPost]
@@ -71,13 +79,24 @@ namespace Cms.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.SubCategory.Add(obj);
-                _unitOfWork.Save();
-                TempData["Success"] = "SubCategory added successfully";
-                return RedirectToAction("Index");
 
+                if (obj.Id == 0)
+                {
+                _unitOfWork.SubCategory.Add(obj);
 
             }
+                else
+            {
+
+                _unitOfWork.SubCategory.Update(obj);
+            }
+            _unitOfWork.Save();
+            TempData["Success"] = "SubCategory added successfully";
+            return RedirectToAction("Index");
+
+             }
+
+            
 
             return View(obj);
         }

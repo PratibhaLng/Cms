@@ -17,7 +17,7 @@ namespace Data.Models
         [Required]
         public string Description { get; set; }
         [Required]
-
+        [Range(1,10000)]
         public double Price { get; set; }
 
         public DateTime CreatedDate { get; set; }
