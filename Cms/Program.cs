@@ -2,6 +2,7 @@ using Data;
 using Data.Repository.IRepository;
 using Data.Repository;
 using Microsoft.EntityFrameworkCore;
+//using Cms.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+//app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Admin}/{controller=Home}/{action=index}/{id?}"

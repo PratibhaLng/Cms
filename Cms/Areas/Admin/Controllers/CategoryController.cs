@@ -29,14 +29,14 @@ namespace Cms.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category obj)
         {
-            if (!ModelState.IsValid)
-            {
+            //if (!ModelState.IsValid)
+            //{
                 _unitOfWork.Category.Add(obj);
                 _unitOfWork.Save();
                 TempData["Success"] = "Category successfully Added";
                 return RedirectToAction("Create");
 
-            }
+            //}
             return View(obj);
         }
         public IActionResult Edit(int? id)
