@@ -9,8 +9,8 @@ namespace Data.Repository.IRepository
     public interface IUnitofWork
     {
         ICategoryRepository Category { get; }
-        //ISubCategoryRepository SubCategory { get; }
-       // IProductRepository Product { get; }
+        ISubCategoryRepository SubCategory { get; }
+        IProductRepository Product { get; }
         void Save();
     }
 }

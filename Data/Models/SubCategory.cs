@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace Data.Models
 
         //  Navigation properties
         public int CategoryId { get; set; }
+        [ValidateNever]
         public Category Category { get; set; }
 
         public List<Product> Products { get; set; }

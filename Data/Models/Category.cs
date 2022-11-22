@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Data.Models
         public DateTime? UpdatedDate { get; set; }
 
         public string? UpdatedBy { get; set; }
-
+        [ValidateNever]
         //navigation properties
         public List<SubCategory> subCategories { get; set; }
 

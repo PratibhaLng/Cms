@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace Data.Models
 
         public string UpdatedBy { get; set; }
         public int SubCategoryId { get; set; }
+        [ValidateNever]
         public SubCategory SubCategory { get; set; }
 
     }

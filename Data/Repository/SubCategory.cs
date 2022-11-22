@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class SubCategoryRepository : Repository<SubCategory>, ISubCategoryRepository
     {
         private ApplicationDbContext _db;
 
-        public CategoryRepository(ApplicationDbContext db) : base(db)
+        public SubCategoryRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
 
-        public void Update(Category obj)
+        public void Update(SubCategory obj)
         {
-            var objfromDb = _db.Category.FirstOrDefault(x => x.Id == obj.Id);
+            var objfromDb =_db.SubCategory.FirstOrDefault(x => x.Id == obj.Id);
             if (objfromDb != null)
-            {
+            {   
                 objfromDb.Name = obj.Name;
-                objfromDb.UpdatedDate = DateTime.Now;
+            objfromDb.UpdatedDate = DateTime.Now;
             }
         }
     }

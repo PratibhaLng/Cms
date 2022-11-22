@@ -57,7 +57,7 @@ namespace Cms.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Category obj)
-        {
+        {             
             if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Update(obj);

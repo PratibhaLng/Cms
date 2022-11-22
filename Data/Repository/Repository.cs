@@ -16,6 +16,7 @@ namespace Data.Repository
         public Repository(ApplicationDbContext db)
         {
             _db = db;
+         //   _db.Product.Include(u => u.SubCategory).ThenInclude(u => u.Category);
             this.dbSet = _db.Set<T>();
         }
 
@@ -25,19 +26,37 @@ namespace Data.Repository
 
         }
 
+        //public IEnumerable<T> GetAll()
+        //{
+        //    IQueryable<T> query = dbSet;
+        //    return query.ToList();
+        //}
 
-
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
+            if (includeProperties != null)
+            {
+                foreach (var includeprop in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeprop);
+                }
+            }
             return query.ToList();
         }
 
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
+        public T GetFirstOrDefault(Expression<Func<T, bool>> filter,string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             query = query.Where(filter);
+            if (includeProperties != null)
+            {
+                foreach (var includeprop in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeprop);
+                }
+            }
             return query.FirstOrDefault();
         }
 
