@@ -1,34 +1,33 @@
 ﻿@model Data.Models.SubCategory
+
 @{
-
-
     ViewData["Title"] = "Edit";
 }
-
 
 <form method="post" asp-action="Edit">
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2 class="text-primary">Edit New SubCategory</h2>
+            <h2 class="text-primary">Edit SubCategory Details</h2>
             <hr />
         </div>
-
+@*        <div asp-validation-summary="All"></div>*@
+        <input type="hidden" asp-for="Id" />
         <div class="mb-3">
             <label asp-for="Name"></label>
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
+
         <div class=" mb-3">
 
             <label asp-for="CategoryId"></label>
             <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryList">
-                <option selected>--Select Category--</option>
+                <option selected>--Select SubCategory--</option>
             </select>
             <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
-
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a asp-controller="SubCategory" asp-action="Index" class="btn btn-secondary">Back to List </a>
+        
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-controller="SubCategory" asp-action="Index" class="btn btn-secondary">Back </a>
     </div>
 </form>

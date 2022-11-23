@@ -21,7 +21,7 @@ namespace Cms.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> objProductList = _unitOfWork.Product.GetAll();
+            IEnumerable<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "SubCategory");
             return View(objProductList);
         }
 
@@ -89,8 +89,8 @@ namespace Cms.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Product obj)
         {
-            if (ModelState.IsValid)
-            {
+           // if (ModelState.IsValid)
+            //{
                 if (obj.Id != 0)
                 {
                     _unitOfWork.Product.Update(obj);
@@ -101,7 +101,7 @@ namespace Cms.Areas.Admin.Controllers
                 return RedirectToAction("Index");
 
 
-            }
+           // }
 
             return View(obj);
         }

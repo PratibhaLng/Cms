@@ -18,7 +18,7 @@ namespace Cms.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<SubCategory> objCategoryList = _unitOfWork.SubCategory.GetAll(); ;
+            IEnumerable<SubCategory> objCategoryList = _unitOfWork.SubCategory.GetAll(includeProperties: "Category"); ;
 
             
             //ViewBag.CategoryList = CategoryList;
@@ -85,20 +85,22 @@ namespace Cms.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(SubCategory obj)
         {
-            if (ModelState.IsValid)
-            {
+           //// if (ModelState.IsValid)
+           // {
                 if (obj.Id != 0)
                 {
                     _unitOfWork.SubCategory.Update(obj);
-                   
                 }
+
+
 
                 _unitOfWork.Save();
                 TempData["Success"] = "SubCategory updated successfully";
+
                 return RedirectToAction("Index");
 
 
-            }
+           // }
 
             return View(obj);
         }
