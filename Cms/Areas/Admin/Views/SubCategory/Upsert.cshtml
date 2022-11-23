@@ -1,8 +1,8 @@
-﻿@model Data.Models.SubCategory
+﻿@*@model Data.Models.SubCategory
 
-@*@{
+{
     ViewData["Title"] = "Upsert";
-}*@
+}
 
 <form method="post" asp-action="Upsert" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
@@ -17,17 +17,17 @@
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label asp-for="CreatedDate"></label>
-            <input asp-for="CreatedDate" class="form-control" />
-            <span asp-validation-for="CreatedDate" class="text-danger"></span>
+       
+
+        <div class="form-group">
+            <label asp-for="CategoryList" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="CategoryId" asp-items="@Model.CategoryList"></select>
+            </div>
         </div>
+
+
         <div class="mb-3">
-            <label asp-for="UpdatedDate"></label>
-            <input asp-for="UpdatedDate" class="form-control" />
-            <span asp-validation-for="UpdatedDate" class="text-danger"></span>
-        </div>
-         <div class="mb-3">
             <label asp-for="CategoryId"></label>
             <select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select" />
             <option  selected>--Select Category--</option>
@@ -37,4 +37,4 @@
         <a asp-controller="SubCategory" asp-action="Index" class="btn btn-secondary">Back to Homepage</a>
     </div>
 </form>
-
+*@

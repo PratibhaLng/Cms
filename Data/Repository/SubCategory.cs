@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using Data.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Data.Repository
         public SubCategoryRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
+            _db.SubCategory.Include(x => x.Category);
         }
 
         public void Update(SubCategory obj)
@@ -24,6 +26,8 @@ namespace Data.Repository
             {   
                 objfromDb.Name = obj.Name;
             objfromDb.UpdatedDate = DateTime.Now;
+                objfromDb.UpdatedBy = "user";
+               
             }
         }
     }

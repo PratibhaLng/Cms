@@ -24,6 +24,7 @@ namespace Data.Repository
             {
                 objfromDb.Name = obj.Name;
                 objfromDb.UpdatedDate = DateTime.Now;
+                objfromDb.UpdatedBy = "user";
             }
         }
     }

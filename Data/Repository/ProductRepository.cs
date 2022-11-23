@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using Data.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Data.Repository
         public ProductRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
+            _db.Product.Include(x => x.SubCategory).ThenInclude(x => x.Category);
         }
 
         public void Update(Product obj)
@@ -26,6 +28,7 @@ namespace Data.Repository
                 objfromDb.Description = obj.Description;
                 objfromDb.Price = obj.Price;
                 objfromDb.UpdatedDate = DateTime.Now;
+                objfromDb.UpdatedBy = "user";
             }
         }
     

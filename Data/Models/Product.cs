@@ -20,15 +20,16 @@ namespace Data.Models
 
         public double Price { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        public string ? CreatedBy { get; set; }
+        public string? CreatedBy { get; set; } = "user";
 
-        public DateTime UpdatedDate { get; set; }
+        public DateTime ? UpdatedDate { get; set; }
 
-        public string UpdatedBy { get; set; }
-        public int SubCategoryId { get; set; }
+        public string ? UpdatedBy { get; set; } = "user";
         [ValidateNever]
+        public int SubCategoryId { get; set; }
+       
         public SubCategory SubCategory { get; set; }
 
     }

@@ -12,7 +12,7 @@
             <h2 class="text-primary">SubCategory List</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="SubCategory" asp-action="Upsert"  class="btn btn-primary">
+            <a asp-controller="SubCategory" asp-action="Create"  class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> &nbsp; Create SubCategory
             </a>
         </div>
@@ -43,7 +43,11 @@
                     <tr>
                         <td width="30%">@obj.Id </td>
                         <td width="30%">@obj.Name </td>
-                        <td width="30%">@obj.Category </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => obj.Category.Name)
+                           
+                        </td>
 
                         <td width="30%">@obj.CreatedDate </td>
                         <td width="30%">@obj.CreatedBy </td>
@@ -51,9 +55,9 @@
                         <td width="30%">@obj.UpdatedBy </td>
 
 
-                       @* <td>
+                        <td>
                             <div class="btn-group" role="group">
-                                <a asp-controller="SubCategory" asp-action="Upsert" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                <a asp-controller="SubCategory" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i>&nbsp;Edit
                                 </a>
                             </div>
@@ -64,7 +68,7 @@
                                     <i class="bi bi-x-square"></i>&nbsp;Delete
                                 </a>
                             </div>
-                        </td>*@
+                        </td>
                     </tr>
                 }
             </tbody>

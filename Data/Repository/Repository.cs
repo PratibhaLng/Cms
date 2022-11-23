@@ -46,7 +46,7 @@ namespace Data.Repository
         }
 
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter,string? includeProperties = null)
+        public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             query = query.Where(filter);
@@ -57,6 +57,8 @@ namespace Data.Repository
                     query = query.Include(includeprop);
                 }
             }
+
+
             return query.FirstOrDefault();
         }
 

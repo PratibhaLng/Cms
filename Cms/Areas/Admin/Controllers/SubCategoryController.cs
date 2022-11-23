@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cms.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class SubCategoryController : Controller
-    {
+
+
+  [Area("Admin")]
+   public class SubCategoryController : Controller
+{
         private readonly IUnitofWork _unitOfWork;
         public SubCategoryController(IUnitofWork unitOfWork)
         {
@@ -16,64 +18,83 @@ namespace Cms.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<SubCategory>? objCategoryList = _unitOfWork.SubCategory.GetAll();
+            IEnumerable<SubCategory> objCategoryList = _unitOfWork.SubCategory.GetAll(); ;
+
+            
+            //ViewBag.CategoryList = CategoryList;
+
+
             return View(objCategoryList);
         }
 
         //Get
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-        ////POST
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create(SubCategory obj)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        _unitOfWork.SubCategory.Add(obj);
-        //        _unitOfWork.Save();
-        //        TempData["Success"] = "SubCategory successfully Added";
-        //        return RedirectToAction("Create");
+        public IActionResult Create()
+        {
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
+               u => new SelectListItem
+               {
+                   Text = u.Name,
+                   Value = u.Id.ToString(),
+               }
+           );
+            ViewBag.CategoryList = CategoryList;
 
-        //    }
-        //    return View(obj);
-        //}
-        public IActionResult Upsert(int? id)
+            return View();
+        }
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(SubCategory obj)
+        {
+            if (!ModelState.IsValid)
+            {
+            _unitOfWork.SubCategory.Add(obj);
+            _unitOfWork.Save();
+            TempData["Success"] = "SubCategory successfully Added";
+            return RedirectToAction("Create");
+
+            }
+            return View(obj);
+        }
+        public IActionResult Edit(int? id)
         {
             SubCategory subCategory = new();
+
             IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
-                u=> new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString(),
-                }
-            );
-            if (id == null|| id==0)
+               u => new SelectListItem
+               {
+                   Text = u.Name,
+                   Value = u.Id.ToString(),
+               }
+           );
+            if (id == null)
             {
+                return NotFound();
+            }
+            else
+            {
+                subCategory = _unitOfWork.SubCategory.GetFirstOrDefault(x => x.Id == id);
                 ViewBag.CategoryList = CategoryList;
                 return View(subCategory);
             }
-            else
-            //var subcategoryfromDbFirst = _unitOfWork.SubCategory.GetFirstOrDefault(x => x.Id == id);
-            //if (subcategoryfromDbFirst == null)
-            //{
-            //    return NotFound();
-            //}
-            return View(subCategory);
+            
 
         }
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(SubCategory obj)
+        public IActionResult Edit(SubCategory obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.SubCategory.Add(obj);
+                if (obj.Id != 0)
+                {
+                    _unitOfWork.SubCategory.Update(obj);
+                   
+                }
+
                 _unitOfWork.Save();
-                TempData["Success"] = "SubCategory added successfully";
+                TempData["Success"] = "SubCategory updated successfully";
                 return RedirectToAction("Index");
 
 
@@ -84,6 +105,13 @@ namespace Cms.Areas.Admin.Controllers
 
         public IActionResult Delete(int? id)
         {
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
+              u => new SelectListItem
+              {
+                  Text = u.Name,
+                  Value = u.Id.ToString(),
+              }
+          );
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -93,6 +121,7 @@ namespace Cms.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewBag.CategoryList = CategoryList;
             return View(categoryfromDb);
         }
 
